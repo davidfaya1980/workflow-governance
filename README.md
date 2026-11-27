@@ -7,6 +7,7 @@ Working folder for the Enterprise Workflow Governance project: the policies, wor
 The system being built is the **Governance Intake Platform**: one front door for governance review from idea to launch and run state. An intake agent gathers facts, owner-maintained versioned rules decide which of 12 governance domains apply, and named people approve.
 
 - [docs/source-artifacts.md](docs/source-artifacts.md): index of the spec artifacts, with a summary, roadmap and open decisions
+- [docs/governance-intake-platform-design-doc.md](docs/governance-intake-platform-design-doc.md): full design document (Draft v0.1), the detailed spec
 - [docs/governance-intake-platform-exec-summary.md](docs/governance-intake-platform-exec-summary.md): executive summary deck (Draft v0.1), exported to Markdown
 
 ## Layout

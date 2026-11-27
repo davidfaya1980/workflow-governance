@@ -8,15 +8,17 @@ Enterprise Workflow Governance is a project folder (mostly documents, not an app
 
 ## Requirements and specifications
 
-The system being built is the Governance Intake Platform. Its first-draft requirements and specs are indexed in `docs/source-artifacts.md`, with the executive summary exported to `docs/governance-intake-platform-exec-summary.md`. Read these before writing policies, workflows or decisions, and keep the index up to date when artifacts are added or revised. Exported copies should match their source artifact; don't edit them by hand.
+The system being built is the Governance Intake Platform. Its first-draft requirements and specs are indexed in `docs/source-artifacts.md`, with local copies of the design document (`docs/governance-intake-platform-design-doc.md`, the detailed spec and the source to follow when the two differ) and the executive summary deck (`docs/governance-intake-platform-exec-summary.md`). Read these before writing policies, workflows or decisions, and keep the index up to date when artifacts are added or revised. Exported copies should match their source artifact; don't edit them by hand.
 
 Core design principles to respect in everything written here:
 - The AI never decides. Deterministic, versioned rules decide which domains apply; named people approve.
 - Every requirement traces back to a rule and the facts that triggered it.
 - Unknown or ambiguous answers trigger review (over-review, never a silent miss).
-- Each fact is asked once, in one shared taxonomy.
+- Each fact is asked once, in one shared taxonomy. Attributes are additive; a meaning change creates a new attribute.
+- Rules are deterministic and versioned; same facts plus same rule versions give the same result.
+- The platform itself must meet its own Tier 3 bar (Canadian residency, privilege controls, tamper-evident audit log).
 
-Key terms: 12 domains (each a "domain pack" owned by its domain owner), review tiers (1 notify, 2 expert review, 3 escalate), run state (obligations that continue after launch), phases (Discovery, MVP pilot, Scale, Optimize) separated by Gates 1 to 3.
+Key terms: attributes (typed facts, IDs like `data.personal_info`), rules (IDs like `PRV-02`), 12 domains (each a "domain pack" owned by its domain owner, with taxonomy, rules, policies, approval chain and run-state obligations), review tiers (1 notify, 2 expert review, 3 escalate), run state (obligations that continue after launch), project gates (design, pre-launch), programme phases (Discovery, MVP pilot, Scale, Optimize) separated by Gates 1 to 3. Use the design doc's terms and IDs rather than inventing new ones.
 
 ## Layout
 

@@ -5,9 +5,9 @@ First-draft requirements and specifications for the system this project will bui
 | Artifact | Type | Version | Original | Local copy |
 |---|---|---|---|---|
 | Governance Intake Platform: Executive Summary | Slide deck (12 slides) | Draft v0.1, Nov 2026 | [Open artifact](https://claude.ai/code/artifact/9d74035d-5ebf-4abd-ab3c-720745a49b3a) | [governance-intake-platform-exec-summary.md](governance-intake-platform-exec-summary.md) |
-| _Second artifact (to be added)_ | | | | |
+| Governance Intake Platform: Design Document | Doc | Draft v0.1, Nov 24, 2026 | [Open artifact](https://claude.ai/code/artifact/9e1c0796-d0b3-4597-96c2-cd668dcc27fd) | [governance-intake-platform-design-doc.md](governance-intake-platform-design-doc.md) (no diagrams) |
 
-The deck summarizes a longer design document that is not yet in this repo. It holds the full domain packs, the province-by-province matrix and the full metric set.
+The deck summarizes the design document. **The design document is the more detailed source**: where the two differ, follow the design document and note the difference.
 
 ## Executive summary at a glance
 
@@ -44,3 +44,45 @@ The deck summarizes a longer design document that is not yet in this repo. It ho
 4. Decide whether intake is mandatory for all projects or only above a size threshold
 
 Build vs buy is assessed in Discovery and decided at Gate 1.
+
+## Design document: where to find things
+
+| Topic | Section in the design doc |
+|---|---|
+| Goals, non-goals, personas | Problem, goals and non-goals; Users and personas |
+| Data model (project, attribute, domain, rule, requirement, approval chain, obligation, evidence, exception) | Core concepts and domain model |
+| Shared attribute taxonomy (`proj.*`, `geo.*`, `data.*`, `tech.*`, `ai.*`, `vendor.*`, `fin.*`, `legal.*`, `ux.*`, `hr.*`, `rec.*`) | Shared project attribute taxonomy |
+| Provinces, federal baseline, provincial law matrix | Jurisdiction coverage: Canadian provinces |
+| Rule schema, evaluation (fixed point, merge, unknown policy), versioning, conflict checks | Rules engine and rule language |
+| Intake agent flow, policy Q&A, guardrails, evaluation set | Intake agent design |
+| Rule builder, requirement library, approval chain builder, testing, back-testing, change control | SME authoring experience |
+| Gates, SLAs (5 business days Tier 2, 10 Tier 3), delegation, exceptions, re-triggering | Workflow, approvals and lifecycle |
+| 12 domain packs (taxonomy, rules, policies, approval chain, run-state obligations) | Domain rule packs 1 to 12 |
+| Cross-domain triggers | Cross-domain trigger map |
+| Integrations and event stream, by phase | Integrations |
+| Platform's own security, privilege, audit log, AI data handling, retention | Security, privacy and privilege of the platform itself |
+| Global and per-domain reports, admin dashboard | Reporting, audit and evidence |
+| Approval reuse, reviewer assistant, regulatory change tracking, attestations, rule maintenance assistant | Additional capabilities |
+| Availability, performance, scale, localization, residency, interoperability | Non-functional requirements |
+| Risks and open questions | Risks, mitigations and open questions |
+| 12-month metrics | Success metrics |
+| Worked example (Smart Support Assistant) | Appendix: worked example |
+
+## Key details the design doc adds
+
+- **Rule IDs** use a domain prefix and number: PRV, SEC, LGL, PRC, AIG, FIN, REC, RC, HR, ERM, DG, EA (e.g., `PRV-02`). Rules are immutable once active; edits create a new version with an effective date, and projects keep a frozen snapshot of rule versions at each gate.
+- **Unknown answers** follow each rule's `unknown_policy` (`trigger`, `ask_sme` or `ignore`), defaulting to `trigger`.
+- **Gates within a project:** a design gate (PIA, threat model, AIA, vendor selection) and a pre-launch gate (tests, contracts, notices, final sign-offs).
+- **Non-functional targets:** 99.9% monthly availability, with the engine degrading to "trigger all Tier 2 reviews", never "none"; rule evaluation under 2 s for 1,000 rules; agent first response under 5 s; 5,000 projects a year, 50 domains, 2,000 rules; English and French; WCAG 2.1 AA; Canadian hosting by default; rules and taxonomy exportable as JSON/YAML.
+- **Extra metrics:** reviews started after build under 10%; extraction precision 95%+ and recall 99%+ on triggering attributes; under 25 questions per intake; CSAT 4/5+; 100% of rules reviewed within 12 months.
+- **MVP integrations:** SSO, HRIS org chart, Slack/Teams, email, policy repository. Work management, procurement, TPRM/GRC, CLM and data catalog/CMDB come in Phase 2; CI/CD scanners, e-signature and BI in Phase 3.
+
+## Open questions (from the design doc)
+
+- [ ] Who owns the shared attribute taxonomy: central Legal Ops, Risk, or a PMO?
+- [ ] Build, buy, or extend an existing GRC platform? (Build-vs-buy analysis to be written.)
+- [ ] Which business unit pilots first?
+- [ ] What is the threshold for a "material change" that re-triggers review?
+- [ ] Is intake mandatory for all projects, or above a size threshold?
+- [ ] Final dollar and volume thresholds for each domain's tiers
+- [ ] Executive sponsor (from the deck)
